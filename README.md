@@ -13,5 +13,5 @@ Heavily dependent on the NumPy and SymPy packages. SymPy only supports 2 dimensi
 
 # Going Forward
 * Grow Geometry Code Base
-* Extend GeomPy to other sectors of Mathematics
+* Extend GeomPy to other sectors of Mathematics (change name)
   * Dynamical Systems?
