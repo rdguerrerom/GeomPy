@@ -1,4 +1,4 @@
-# GeomPy
+# :curly_loop: GeomPy :curly_loop:
 Super cool Differential Geometry Library for Python
 
 # The Idea
