@@ -1,6 +1,6 @@
 """
 
-A geometry module for the GeomPy library.
+A Differential Geometry module for the GeomPy library.
 
 Contains functionality to construct N dimensional Curves.
 
