@@ -7,15 +7,13 @@ Curve
 
 """
 
-
 import numpy as np
 from sympy import integrate, sqrt
 from sympy.abc import *
+from sympy.core.basic import Basic
 from sympy.core import sympify, diff
-from sympy.core.containers import Tuple
-from sympy.geometry.entity import GeometryEntity, GeometrySet
 
-class Curve(GeometrySet):
+class Curve(Basic):
     """A curve in space n-dimensional space
 
     A curve is constructed by a parameterized functions and a parameter value ie. 'x'
@@ -36,15 +34,27 @@ class Curve(GeometrySet):
     ========
 
     >>> from curve import Curve
-    >>> from sympy import sin
+    >>> from sympy import sin,cos
+    
     >>> alpha = Curve((x + 1, x - 2, x**3, sin(x)), x)
     >>> alpha
     Curve((x + 1, x - 2, x**3, sin(x)), x)
 
+    >>> beta = Curve((sin(x), cos(x), 0), x)
+    >>> beta
+    Curve((sin(x), cos(x), 0), x)
+
     """
-    def __new__(cls, functions, parameter):
-        obj = GeometryEntity.__new__(cls, functions,parameter)
-        return obj
+    def __repr__(self):
+        return type(self).__name__ + repr(self.args)
+    def __str__(self):
+        from sympy.printing import sstr
+        ret = sstr(self.args)
+        return type(self).__name__ + sstr(self.args)
+    def __new__(cls, *args):
+
+        args = [sympify(a) for a in args]
+        return Basic.__new__(cls, *args)
 
     @property
     def functions(self):
@@ -59,10 +69,14 @@ class Curve(GeometrySet):
         ========
 
         >>> from curve import Curve
-        >>> from sympy import sin
+        >>> from sympy import sin,cos
         >>> alpha = Curve((x + 1, x - 2, x**3, sin(x)), x)
         >>> alpha.functions
         (x + 1, x - 2, x**3, sin(x))
+
+        >>> beta = Curve((sin(x), cos(x), 0), x)
+        >>> beta.functions
+        (sin(x), cos(x), 0)
 
         """
         return self.args[0]
@@ -80,10 +94,14 @@ class Curve(GeometrySet):
         ========
 
         >>> from curve import Curve
-        >>> from sympy import sin
+        >>> from sympy import sin,cos
         >>> alpha = Curve((x + 1, x - 2, x**3, sin(x)), x)
         >>> alpha.parameter
         x
+
+        >>> beta = Curve((sin(t), cos(t), 0), t)
+        >>> beta.parameter
+        t
 
         """
         return self.args[1]
@@ -96,10 +114,14 @@ class Curve(GeometrySet):
         ========
 
         >>> from curve import Curve
-        >>> from sympy import sin
+        >>> from sympy import sin,cos
         >>> alpha = Curve((x + 1, x - 2, x**3, sin(x)), x)
         >>> alpha.dimension
         4
+
+        >>> beta = Curve((sin(x), cos(x), 0), x)
+        >>> beta.dimension
+        3
 
         """
         return len(self.args[0])
@@ -197,7 +219,7 @@ class Curve(GeometrySet):
         result = []
         for pr in product:
             result.append(pr.simplify())
-        return Curve(result, self.parameter)
+        return Curve(tuple(result), self.parameter)
 
     def isUnitLength(self):
         """If the curve is of unit length
@@ -274,8 +296,8 @@ class Curve(GeometrySet):
         tangentPrime = (self.uTangent()).diffV()
         tPrimeLength = tangentPrime.length()
         if (tPrimeLength != 0):
-            tangentPrimeFunctions = list(((np.array(tangentPrime.functions))/ tPrimeLength))
-            return Curve(tangentPrimeFunctions, self.parameter)
+            retCurve = Curve(tuple((tangentPrime.functions)), self.parameter)
+            return retCurve.divide(tPrimeLength)
         else:
             return "undefined"
 
@@ -408,13 +430,13 @@ class Curve(GeometrySet):
         result = []
         for func in self.functions:
             result.append(diff(func,self.parameter))
-        return Curve(result,self.parameter)
+        return Curve(tuple(result),self.parameter)
 
     def divide(self,quantity):
         functions = []
         for func in self.functions:
             functions.append(func / quantity)
-        return Curve(functions, self.parameter)
+        return Curve(tuple(functions), self.parameter)
 
     def Torsion(self):
         """The Torsion of the curve (tau)
@@ -552,3 +574,26 @@ class Curve(GeometrySet):
         alphaPrimesCross = alphaPrime.cross(alphaDoublePrime)
         length = alphaPrimesCross.length()
         return alphaPrimesCross.divide(length)
+
+    def frenetFrame(self):
+        """The Frenet Frame of a parameterized 3-dimensional curve
+
+        Examples
+        ========
+
+        >>> from curve import Curve
+        >>> from sympy import sin, cos
+        >>> alpha = Curve((sin(x), cos(x), 0), x)
+        >>> alpha.frenetFrame()
+        {'Tangent': Curve((cos(x), -sin(x), 0), x), 'Binormal': Curve((0, 0, -1), x), 'Normal': Curve((-sin(x), -cos(x), 0), x)}
+
+        """
+        tangent = self.Tangent()
+        normal = self.Normal()
+        binormal = self.Binormal()
+        frame = {
+                 "Tangent": self.Tangent(),
+                 "Normal": self.Normal(),
+                 "Binormal": self.Binormal()
+                 }
+        return frame
