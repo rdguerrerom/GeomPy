@@ -15,6 +15,35 @@ from sympy import S
 import matplotlib.pyplot as plt
 
 class DynamicalSystem1D(Basic):
+    """A 1 Dimensional Dynamical System
+
+    A 1 dimensional dynamical system is constructed by a functions and a parameter value ie. 'x'
+
+    Parameters
+    ==========
+    
+    system : a function
+    parameter: symbol, ie. 'x'
+
+    Attributes
+    ==========
+    
+    system
+    parameter
+    fuxedPoints
+
+    Examples
+    ========
+    
+    >>> from dynamical1D import DynamicalSystem1D
+    >>> xDot = DynamicalSystem1D((x**2) - 1, x)
+    >>> xDot
+    DynamicalSystem1D(x**2 - 1, x)
+    >>> yDot = DynamicalSystem1D(y**2, y)
+    >>> yDot
+    DynamicalSystem1D(y**2, y)
+    
+    """
     
     def __repr__(self):
         return type(self).__name__ + repr(self.args)
@@ -30,19 +59,85 @@ class DynamicalSystem1D(Basic):
 
     @property
     def system(self):
+        """The system represented by the function
+
+        Returns
+        =======
+        
+        system : a function that represents the system
+        
+        Examples
+        ========
+        
+        >>> from dynamical1D import DynamicalSystem1D
+        >>> xDot = DynamicalSystem1D((x**2) - 1, x)
+        >>> xDot.system
+        x**2 - 1
+        >>> yDot = DynamicalSystem1D(y**2, y)
+        >>> yDot.system
+        y**2
+
+        """
         return self.args[0]
 
     @property
     def parameter(self):
+        """The system represented by the function
+
+        Returns
+        =======
+        
+        parameter : symbol that represents the parameter of the system
+        
+        Examples
+        ========
+        
+        >>> from dynamical1D import DynamicalSystem1D
+        >>> xDot = DynamicalSystem1D((x**2) - 1, x)
+        >>> xDot.parameter
+        x
+        >>> yDot = DynamicalSystem1D(y**2, y)
+        >>> yDot.parameter
+        y
+
+        """
         return self.args[1]
 
     @property
     def fixedPoints(self):
+        """The system represented by the function
+        
+        Examples
+        ========
+        
+        >>> from dynamical1D import DynamicalSystem1D
+        >>> xDot = DynamicalSystem1D((x**2) - 1, x)
+        >>> xDot.fixedPoints
+        [-1, 1]
+        >>> yDot = DynamicalSystem1D(y**2, y)
+        >>> yDot.fixedPoints
+        [0]
+
+        """
         fixedPoints = solveset(self.system,self.parameter,domain=S.Reals)
         (list(fixedPoints)).sort()
         return list(fixedPoints)
 
-    def _getEvalPoints(self):
+    def getEvalPoints(self):
+        """The points to look at when evaluating stability
+        
+        Examples
+        ========
+        
+        >>> from dynamical1D import DynamicalSystem1D
+        >>> xDot = DynamicalSystem1D((x**2) - 1, x)
+        >>> xDot.getEvalPoints()
+        [-2, 0, 2]
+        >>> yDot = DynamicalSystem1D(y**2, y)
+        >>> yDot.getEvalPoints()
+        [-1, 1]
+
+        """
         fixedPoints = self.fixedPoints
         result = []
         for i in range(len(fixedPoints)):
@@ -62,16 +157,44 @@ class DynamicalSystem1D(Basic):
         result.append(nex)
         return result
 
-    def _getEvalPointValues(self):
+    def getEvalPointValues(self):
+        """The points to look at when evaluating stability
+        
+        Examples
+        ========
+        
+        >>> from dynamical1D import DynamicalSystem1D
+        >>> xDot = DynamicalSystem1D((x**2) - 1, x)
+        >>> xDot.getEvalPointValues()
+        [3, -1, 3]
+        >>> yDot = DynamicalSystem1D(y**2, y)
+        >>> yDot.getEvalPointValues()
+        [1, 1]
+
+        """
         result = []
-        evalPoints = self._getEvalPoints()
+        evalPoints = self.getEvalPoints()
         for evalPoint in evalPoints:
             result.append(self.system.subs(self.parameter, evalPoint))
         return result
                           
     def classify(self):
+        """The points to look at when evaluating stability
+        
+        Examples
+        ========
+        
+        >>> from dynamical1D import DynamicalSystem1D
+        >>> xDot = DynamicalSystem1D((x**2) - 1, x)
+        >>> xDot.classify()
+        [(-1, 'Stable'), (1, 'Unstable')]
+        >>> yDot = DynamicalSystem1D(y**2, y)
+        >>> yDot.classify()
+        [(0, 'Semi-Stable')]
+
+        """
         result = []
-        values = self._getEvalPointValues()
+        values = self.getEvalPointValues()
         for i in range(len(values)-1):
             if (values[i] > 0 and values[i+1] < 0):
                 result.append((self.fixedPoints[i], "Stable"))
@@ -82,10 +205,19 @@ class DynamicalSystem1D(Basic):
         return result
 
     def drawPortrait(self):
+        """The stability portrait for the 1 D system
+        
+        To run, simply call self.drawPortrait() and observe the plot.
+        The stability portrait will be drawn and will label the
+        stable, unstable and semi-stable fixed points for the dynamical
+        system. If the plot is not in good scale, just use the zoom feature
+        to adjust.
+
+        """
         fixedPoints = self.fixedPoints
         results = self.classify()
-        evalPoints = self._getEvalPoints()
-        values = self._getEvalPointValues()
+        evalPoints = self.getEvalPoints()
+        values = self.getEvalPointValues()
         plt.ylim(-.5,.5)
         plt.xlim(float(fixedPoints[0]-1.5), float(fixedPoints[len(fixedPoints)-1]+1.5))
         for fp in results:
