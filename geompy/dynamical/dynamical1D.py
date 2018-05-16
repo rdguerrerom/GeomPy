@@ -59,7 +59,7 @@ class DynamicalSystem1D(Basic):
 
     @property
     def system(self):
-        """The system represented by the function
+        """The 1D system represented by the function
 
         Returns
         =======
@@ -82,7 +82,7 @@ class DynamicalSystem1D(Basic):
 
     @property
     def parameter(self):
-        """The system represented by the function
+        """The parameter of the 1D system
 
         Returns
         =======
@@ -105,7 +105,7 @@ class DynamicalSystem1D(Basic):
 
     @property
     def fixedPoints(self):
-        """The system represented by the function
+        """The fixed points of the 1D system
         
         Examples
         ========
@@ -124,7 +124,7 @@ class DynamicalSystem1D(Basic):
         return list(fixedPoints)
 
     def getEvalPoints(self):
-        """The points to look at when evaluating stability
+        """The points to look at when evaluating stability of the 1D system
         
         Examples
         ========
@@ -158,7 +158,7 @@ class DynamicalSystem1D(Basic):
         return result
 
     def getEvalPointValues(self):
-        """The points to look at when evaluating stability
+        """The point values to look at when evaluating stability of the 1D system
         
         Examples
         ========
@@ -179,7 +179,7 @@ class DynamicalSystem1D(Basic):
         return result
                           
     def classify(self):
-        """The points to look at when evaluating stability
+        """The stability classification of the 1D system
         
         Examples
         ========
@@ -205,7 +205,7 @@ class DynamicalSystem1D(Basic):
         return result
 
     def drawPortrait(self):
-        """The stability portrait for the 1 D system
+        """The stability portrait for the 1D system
         
         To run, simply call self.drawPortrait() and observe the plot.
         The stability portrait will be drawn and will label the
