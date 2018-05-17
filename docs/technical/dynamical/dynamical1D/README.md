@@ -46,6 +46,7 @@ x
 | `getEvalPoints(self)`      | self : DynamicalSystem1D | The points to look at when evaluating stability of the 1D system
 | `getEvalPointValues(self)`      | self : DynamicalSystem1D      |   The point values to look at when evaluating stability of the 1D system
 | `classify(self)` | self : DynamicalSystem1D      |  The stability classification of the 1D system 
+| `potential(self)` | self : DynamicalSystem1D      |  The potential of the 1D dynamical system
 | `drawPortrait(self)` | self : DynamicalSystem1D      |   The stability portrait for the 1D system 
 
 Note: We are using the same system for all of the examples below
@@ -66,6 +67,12 @@ Note: We are using the same system for all of the examples below
 >>> xDot = DynamicalSystem1D((x**2) - 1, x)
 >>> xDot.classify()
 [(-1, 'Stable'), (1, 'Unstable')]
+```
+#### potential
+```python
+>>> xDot = DynamicalSystem1D((x**2) - 1, x)
+>>> xDot.potential()
+-x**3/3 + x
 ```
 #### drawPortrait
 ```python
