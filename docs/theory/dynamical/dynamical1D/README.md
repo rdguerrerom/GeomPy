@@ -85,3 +85,20 @@ There is another way to evaluate stability, and that is by a __second derivative
 <p align="center">
   <img src="https://latex.codecogs.com/gif.latex?{f}'(x^*)&space;=&space;0" title="{f}'(x^*) = 0" />
 </p>
+
+#### Potential: V(x)
+Given our 1D Dynamical System, its potential is defined as:
+<p align="center">
+<img src="https://latex.codecogs.com/gif.latex?V(x)=-\int&space;f(x)&space;dx" title="V(x)=-\int f(x) dx" />
+</p>
+Potentials have very interesting properties, they provide another way to look at and visualize whether a fixed point is stable or unstable:
+
+1. __Stable__ : Stable fixed point if:
+<p align="center">
+  <img src="https://latex.codecogs.com/gif.latex?V(x^*)&space;\textrm{&space;is&space;a&space;local&space;minimum}" title="V(x^*) \textrm{ is a local minimum}" />
+</p>
+
+2. __Unstable__ : Unstable fixed point if:
+<p align="center">
+<img src="https://latex.codecogs.com/gif.latex?V(x^*)&space;\textrm{&space;is&space;a&space;local&space;maximum}" title="V(x^*) \textrm{ is a local maximum}" />
+</p>
