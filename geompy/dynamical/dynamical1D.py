@@ -7,6 +7,7 @@ DynamicalSystem1D
 
 """
 
+from sympy import integrate
 from sympy.abc import *
 from sympy.core.basic import Basic
 from sympy.core import sympify
@@ -203,6 +204,25 @@ class DynamicalSystem1D(Basic):
             else:
                 result.append((self.fixedPoints[i], "Semi-Stable"))
         return result
+
+    def potential(self):
+        """The potential of the 1D dynamical system
+
+        Examples
+        ========
+        
+        >>> from dynamical1D import DynamicalSystem1D
+        >>> xDot = DynamicalSystem1D((x**2) - 1, x)
+        >>> xDot.potential()
+       -x**3/3 + x
+        >>> yDot = DynamicalSystem1D(y**2, y)
+        >>> yDot.potential()
+        -y**3/3
+        
+        """
+        
+        V = -integrate(self.system, self.parameter)
+        return V
 
     def drawPortrait(self):
         """The stability portrait for the 1D system
