@@ -8,5 +8,5 @@ The idea for this started out in the Spring Semester of 2018 while I was taking 
 Shoutout to SymPy, NumPy, and matplotlib and all who worked on those.
 
 # Objectives
-* Expand the code base for what there is now
+* Expand the code base for what there is now - open to expanding to new areas of interest
 * Have fun and learn some new math!
