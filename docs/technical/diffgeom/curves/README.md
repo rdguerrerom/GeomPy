@@ -40,6 +40,7 @@ x
 | `cross(self, C)` | self, C : Curves      |   The cross product of two curves 
 | `isUnitLength(self)` | self: Curve | If the curve is of unit length
 | `solveCurve(self, value)` | self : Curve, value : int or float |  The result when substituting the value into the curve's parameter
+| `sameUnderRigid(self, beta)` | self, beta: Curves | If two unit speed curves are equivalent under a rigid motion
 #### length
 ```python
 >>> alpha = Curve((x + 1, x - 2, x**3, sin(x)), x)
@@ -80,6 +81,13 @@ True
 >>> alpha = Curve((sin(x), cos(x), 0), x)
 >>> alpha.solveCurve(5)
 [sin(5), cos(5), 0]
+```
+#### sameUnderRigid
+```python
+>>> alpha = Curve((sin(x), cos(x), 0), x)
+>>> beta = Curve((cos(x), sin(x), 0), x)
+ >>> alpha.sameUnderRigid(beta)
+True
 ```
 
 ## Frenet Frame Functions
