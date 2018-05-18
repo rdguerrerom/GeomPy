@@ -98,6 +98,8 @@ Lastly, the torsion of our curve denoted by <img src="http://latex.codecogs.com/
 <img src="http://latex.codecogs.com/gif.latex?\tau(s)=&space;\overrightarrow&space;B'(s)\right\|&space;\cdot&space;\overrightarrow&space;N(s)\right\|" title="\tau(s)= \overrightarrow B'(s)\right\| \cdot \overrightarrow N(s)\right\|" />
 </p>
 
+**Uniqueness Theorem** : If we have two curves that are paramaterized by arc length (unit speed) that have identical curvature and identical torsion, then the two curves are the same under some rigid motion.
+
 Putting all of these definitons together, we can obtain a few cool properties about the derivatives of each component of our Frenet Frame. I will list them here without justification, these can be checked with the tools we have already developed. So, here they are:
 <p align="center">
 <img src="http://latex.codecogs.com/gif.latex?\overrightarrow{T}'(s)&space;=&space;\kappa(s)\overrightarrow{N}(s)" title="\overrightarrow{T}'(s) = \kappa(s)\overrightarrow{N}(s)" />
