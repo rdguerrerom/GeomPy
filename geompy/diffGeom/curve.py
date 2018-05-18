@@ -35,7 +35,7 @@ class Curve(Basic):
 
     >>> from curve import Curve
     >>> from sympy import sin,cos
-    
+
     >>> alpha = Curve((x + 1, x - 2, x**3, sin(x)), x)
     >>> alpha
     Curve((x + 1, x - 2, x**3, sin(x)), x)
@@ -496,6 +496,31 @@ class Curve(Basic):
         numerator = alphaPrimesCross.length()
         denominator = (alphaPrime.length())**3
         return numerator / denominator
+
+    def sameUnderRigid(self, beta):
+        """If two unit speed curves are equivalent under a rigid motion
+
+        Raises
+        ======
+
+        ValueError
+            When both curves are not of unit length
+
+        Examples
+        ========
+
+        >>> from curve import Curve
+        >>> from sympy import sin, cos
+        >>> alpha = Curve((sin(x), cos(x), 0), x)
+        >>> beta = Curve((cos(x), sin(x), 0), x)
+        >>> alpha.sameUnderRigid(beta)
+        True
+
+        """
+        bothUnitSpeed = self.isUnitLength() == 1 and beta.isUnitLength() == 1
+        if not bothUnitSpeed:
+            raise ValueError("To check for equivalence under rigid motion, we require unit speed curves")
+        return ((self.Torsion() == beta.Torsion() ) and (self.Torsion() == beta.Torsion()))
 
     def Tangent(self):
         """The Frenet Frame Tangent Vector (T)
