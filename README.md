@@ -10,3 +10,6 @@ Shoutout to SymPy, NumPy, and matplotlib and all who worked on those.
 # Objectives
 * Expand the code base for what there is now - open to expanding to new areas of interest
 * Have fun and learn some new math!
+
+# If you are looking to contribute
+We are looking for contributors and want to expand to other areas of interest, no matter what it is. View our [Contributing Guidelines](https://github.com/AlexKaracaoglu/GeomPy/blob/master/CONTRIBUTING.md) for more information, and if you have any questions, don't hesitate to reach out!
