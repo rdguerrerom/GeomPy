@@ -610,7 +610,7 @@ class Curve(Basic):
         >>> from sympy import sin, cos
         >>> alpha = Curve((sin(x), cos(x), 0), x)
         >>> alpha.frenetFrame()
-        {'Tangent': Curve((cos(x), -sin(x), 0), x), 'Binormal': Curve((0, 0, -1), x), 'Normal': Curve((-sin(x), -cos(x), 0), x)}
+        {'Tangent': Curve((cos(x), -sin(x), 0), x), 'Normal': Curve((-sin(x), -cos(x), 0), x), 'Binormal': Curve((0, 0, -1), x)}
 
         """
         tangent = self.Tangent()

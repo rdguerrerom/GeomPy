@@ -214,7 +214,7 @@ class DynamicalSystem1D(Basic):
         >>> from dynamical1D import DynamicalSystem1D
         >>> xDot = DynamicalSystem1D((x**2) - 1, x)
         >>> xDot.potential()
-       -x**3/3 + x
+        -x**3/3 + x
         >>> yDot = DynamicalSystem1D(y**2, y)
         >>> yDot.potential()
         -y**3/3
