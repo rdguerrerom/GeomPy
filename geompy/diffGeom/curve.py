@@ -51,8 +51,8 @@ class Curve(Basic):
         from sympy.printing import sstr
         ret = sstr(self.args)
         return type(self).__name__ + sstr(self.args)
-    def __new__(cls, *args):
-
+    def __new__(cls, functions, parameter):
+        args = [functions, parameter]
         args = [sympify(a) for a in args]
         return Basic.__new__(cls, *args)
 

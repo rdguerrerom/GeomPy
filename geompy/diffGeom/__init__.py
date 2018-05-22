@@ -6,4 +6,4 @@ Contains functionality to construct N dimensional Curves.
 
 """
 
-from curve import Curve
+from geompy.diffgeom.curve import Curve
