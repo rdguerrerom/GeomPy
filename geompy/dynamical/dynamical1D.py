@@ -45,6 +45,9 @@ class DynamicalSystem1D(Basic):
     >>> yDot = DynamicalSystem1D(y**2, y)
     >>> yDot
     DynamicalSystem1D(y**2, y)
+    >>> zDot = DynamicalSystem1D((z+1)*(z-1)*(z**2), z)
+    >>> zDot
+    DynamicalSystem1D(z**2*(z - 1)*(z + 1), z)
 
     """
 
@@ -80,6 +83,9 @@ class DynamicalSystem1D(Basic):
         >>> yDot = DynamicalSystem1D(y**2, y)
         >>> yDot.system
         y**2
+        >>> zDot = DynamicalSystem1D((z+1)*(z-1)*(z**2), z)
+        >>> zDot.system
+        z**2*(z - 1)*(z + 1)
 
         """
         return self.args[0]
@@ -103,6 +109,10 @@ class DynamicalSystem1D(Basic):
         >>> yDot = DynamicalSystem1D(y**2, y)
         >>> yDot.parameter
         y
+        >>> zDot = DynamicalSystem1D((z+1)*(z-1)*(z**2), z)
+        >>> zDot.parameter
+        z
+
 
         """
         return self.args[1]
@@ -121,6 +131,9 @@ class DynamicalSystem1D(Basic):
         >>> yDot = DynamicalSystem1D(y**2, y)
         >>> yDot.fixedPoints
         [0]
+        >>> zDot = DynamicalSystem1D((z+1)*(z-1)*(z**2), z)
+        >>> zDot.fixedPoints
+        [-1, 0, 1]
 
         """
         fixedPoints = solveset(self.system,self.parameter,domain=S.Reals)
@@ -140,6 +153,9 @@ class DynamicalSystem1D(Basic):
         >>> yDot = DynamicalSystem1D(y**2, y)
         >>> yDot.getEvalPoints()
         [-1, 1]
+        >>> zDot = DynamicalSystem1D((z+1)*(z-1)*(z**2), z)
+        >>> zDot.getEvalPoints()
+        [-2, -1/2, 1/2, 2]
 
         """
         fixedPoints = self.fixedPoints
@@ -174,6 +190,9 @@ class DynamicalSystem1D(Basic):
         >>> yDot = DynamicalSystem1D(y**2, y)
         >>> yDot.getEvalPointValues()
         [1, 1]
+        >>> zDot = DynamicalSystem1D((z+1)*(z-1)*(z**2), z)
+        >>> zDot.getEvalPointValues()
+        [12, -3/16, -3/16, 12]
 
         """
         result = []
@@ -195,6 +214,9 @@ class DynamicalSystem1D(Basic):
         >>> yDot = DynamicalSystem1D(y**2, y)
         >>> yDot.classify()
         [(0, 'Semi-Stable')]
+        >>> zDot = DynamicalSystem1D((z+1)*(z-1)*(z**2), z)
+        >>> zDot.classify()
+        [(-1, 'Stable'), (0, 'Semi-Stable'), (1, 'Unstable')]
 
         """
         result = []
@@ -221,6 +243,9 @@ class DynamicalSystem1D(Basic):
         >>> yDot = DynamicalSystem1D(y**2, y)
         >>> yDot.potential()
         -y**3/3
+        >>> zDot = DynamicalSystem1D((z+1)*(z-1)*(z**2), z)
+        >>> zDot.potential()
+        -z**5/5 + z**3/3
 
         """
 
@@ -237,6 +262,9 @@ class DynamicalSystem1D(Basic):
         >>> xDot = DynamicalSystem1D((x**2) - 1, x)
         >>> xDot.solveSystem(5)
         24
+        >>> zDot = DynamicalSystem1D((z+1)*(z-1)*(z**2), z)
+        >>> zDot.solveSystem(5)
+        600
 
         """
         return self.system.subs(self.parameter,value)
