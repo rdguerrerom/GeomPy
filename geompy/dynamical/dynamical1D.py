@@ -11,7 +11,7 @@ from scipy import linspace
 from sympy import integrate
 from sympy.abc import *
 from sympy.core.basic import Basic
-from sympy.core import sympify
+from sympy.core import diff, sympify
 from sympy.solvers import solveset
 from sympy import S
 import matplotlib.pyplot as plt
@@ -252,6 +252,35 @@ class DynamicalSystem1D(Basic):
         V = -integrate(self.system, self.parameter)
         return V
 
+    def secondDerivativeTest(self, point):
+        """Second Derivative Test for 1D Dynamical System
+        Raises
+        ======
+
+        ValueError
+            When the point that is passed is not a fixed point
+
+        Examples
+        ========
+        >>> from dynamical1D import DynamicalSystem1D
+        >>> zDot = DynamicalSystem1D((z+1)*(z-1)*(z**2), z)
+        >>> zDot.secondDerivativeTest(-1)
+        'Stable'
+        >>> zDot.secondDerivativeTest(0)
+        'Semi-Stable'
+        >>> zDot.secondDerivativeTest(1)
+        'Unstable'
+        
+        """
+        if point not in self.fixedPoints:
+            raise ValueError("Cannot Apply the Second Derivative Test if Passed Point is not a Fixed Point")
+        value = diff(self.system, self.parameter).subs(self.parameter, point)
+        if value > 0:
+            return "Unstable"
+        if value < 0:
+            return "Stable"
+        return "Semi-Stable"
+
     def solveSystem(self, value):
         """The result when substituting the value into the system's parameter
 
@@ -276,8 +305,6 @@ class DynamicalSystem1D(Basic):
         for point in points:
             result = np.insert(result, len(result), self.solveSystem(point))
         return result
-
-
 
     def drawPortrait(self):
         """The stability portrait for the 1D system
