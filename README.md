@@ -1,5 +1,5 @@
 # :curly_loop: GeomPy :curly_loop:
-Super cool Differential Geometry and Dynamical Systems library in Python
+Super cool Differential Geometry and Dynamical Systems library in Python. Still very much in production
 
 # The Idea
 The idea for this started out in the Spring Semester of 2018 while I was taking a Differential Geometry course. When poking around some other libraries in python, none really provided the functionality that was desired. I knew I needed to be able to construct N-dimensional curves. So this is where I began. Interest then spread into some fairly basic dynamical systems, so this became added as well. Now just working through these and looking to learn some new math and add that in as well.
